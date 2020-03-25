@@ -1,0 +1,13 @@
+- hosts: all
+  tasks:
+    - yum:
+        name: 
+          - python
+          - python-pip
+        state: latest
+    - pip:
+        name:
+          - urllib3
+          - pyOpenSSL
+          - ndg-httpsclient
+          - pyasn1

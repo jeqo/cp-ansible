@@ -57,6 +57,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       name_node(zookeeper, name)
       ip_address = "192.168.50." + (10 + i).to_s
       assign_local_ip(zookeeper, ip_address)
+      zookeeper.vm.provision "ansible" do |ansible|
+        ansible.playbook = "vagrant.yml"
+        ansible.become = true
+      end
+      zookeeper.vm.provision "ansible" do |ansible|
+        ansible.groups = {
+            "zookeeper" => [ name ]
+        }
+        ansible.playbook = "all.yml"
+        ansible.tags = "zookeeper"
+        ansible.become = true
+      end
     #   zookeeper.vm.provision "shell", path: "vagrant/base.sh", env: {"JDK_MAJOR" => jdk_major, "JDK_FULL" => jdk_full}
     #   zk_jmx_port = enable_jmx ? (8000 + i).to_s : ""
     #   zookeeper.vm.provision "shell", path: "vagrant/zk.sh", :args => [i.to_s, num_zookeepers, zk_jmx_port]
