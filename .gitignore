@@ -3,3 +3,5 @@
 *.pyc
 *.idea
 generated_ssl_files/
+
+.vagrant/
