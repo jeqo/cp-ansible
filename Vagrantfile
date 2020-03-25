@@ -10,7 +10,7 @@ num_zookeepers = 1
 num_brokers = 3
 num_workers = 0 # Generic workers that get the code, but don't start any services
 ram_megabytes = 1280
-base_box = "ubuntu/trusty64"
+base_box = "ubuntu/xenial64"
 
 # local_config_file = File.join(File.dirname(__FILE__), "Vagrantfile.local")
 # if File.exists?(local_config_file) then
@@ -57,39 +57,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       name_node(zookeeper, name)
       ip_address = "192.168.50." + (10 + i).to_s
       assign_local_ip(zookeeper, ip_address)
-      zookeeper.vm.provision "ansible" do |ansible|
-        ansible.playbook = "vagrant.yml"
-        ansible.become = true
-      end
-      zookeeper.vm.provision "ansible" do |ansible|
-        ansible.groups = {
-            "zookeeper" => [ name ]
-        }
-        ansible.playbook = "all.yml"
-        ansible.tags = "zookeeper"
-        ansible.become = true
-      end
-    #   zookeeper.vm.provision "shell", path: "vagrant/base.sh", env: {"JDK_MAJOR" => jdk_major, "JDK_FULL" => jdk_full}
-    #   zk_jmx_port = enable_jmx ? (8000 + i).to_s : ""
-    #   zookeeper.vm.provision "shell", path: "vagrant/zk.sh", :args => [i.to_s, num_zookeepers, zk_jmx_port]
     end
   }
 
+  kafka_brokers = []
   (1..num_brokers).each { |i|
     name = "broker" + i.to_s
+    kafka_brokers.push(name)
     config.vm.define name do |broker|
       name_node(broker, name)
       ip_address = "192.168.50." + (50 + i).to_s
       assign_local_ip(broker, ip_address)
-      # We need to be careful about what we list as the publicly routable
-      # address since this is registered in ZK and handed out to clients. If
-      # host DNS isn't setup, we shouldn't use hostnames -- IP addresses must be
-      # used to support clients running on the host.
-    #   zookeeper_connect = zookeepers.map{ |zk_addr| zk_addr + ":2181"}.join(",")
-    #   broker.vm.provision "shell", path: "vagrant/base.sh", env: {"JDK_MAJOR" => jdk_major, "JDK_FULL" => jdk_full}
-    #   kafka_jmx_port = enable_jmx ? (9000 + i).to_s : ""
-    #   broker.vm.provision "shell", path: "vagrant/broker.sh", :args => [i.to_s, enable_dns ? name : ip_address, zookeeper_connect, kafka_jmx_port]
     end
   }
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.compatibility_mode = "2.0"
+    ansible.become = true
+    ansible.groups = {
+        "zookeeper" => zookeepers,
+        "kafka_broker" => kafka_brokers
+    }
+    ansible.playbook = "all.yml"
+  end
 
 end
