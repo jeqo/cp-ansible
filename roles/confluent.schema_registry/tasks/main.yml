@@ -1,21 +1,6 @@
 ---
-- include_role:
-    name: confluent.common
-  when: not common_role_completed|bool
-
-# Install Packages
-- name: Install the Schema Registry Packages
-  yum:
-    name: "{{item}}{{confluent_package_redhat_suffix}}"
-    state: latest
-  loop: "{{schema_registry_packages}}"
-  when: ansible_os_family == "RedHat"
-
-- name: Install the Schema Registry Packages
-  apt:
-    name: "{{item}}{{confluent_package_debian_suffix}}"
-  loop: "{{schema_registry_packages}}"
-  when: ansible_os_family == "Debian"
+- name: Schema Registry Install
+  include: install.yml
 
 # Configure environment
 - name: Schema Registry Group
