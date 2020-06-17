@@ -1,21 +1,6 @@
 ---
-- include_role:
-    name: confluent.common
-  when: not common_role_completed|bool
-
-# Install Packages
-- name: Install the KSQL Packages
-  yum:
-    name: "{{item}}{{confluent_package_redhat_suffix}}"
-    state: latest
-  loop: "{{ksql_packages}}"
-  when: ansible_os_family == "RedHat"
-
-- name: Install the KSQL Packages
-  apt:
-    name: "{{item}}{{confluent_package_debian_suffix}}"
-  loop: "{{ksql_packages}}"
-  when: ansible_os_family == "Debian"
+- name: Ksql Install
+  include: install.yml
 
 # Configure environment
 - name: Create Ksql Group

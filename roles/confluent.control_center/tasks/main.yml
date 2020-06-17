@@ -1,21 +1,6 @@
 ---
-- include_role:
-    name: confluent.common
-  when: not common_role_completed|bool
-
-# Install Packages
-- name: Install the Control Center Packages
-  yum:
-    name: "{{item}}{{confluent_package_redhat_suffix}}"
-    state: latest
-  loop: "{{control_center_packages}}"
-  when: ansible_os_family == "RedHat"
-
-- name: Install the Control Center Packages
-  apt:
-    name: "{{item}}{{confluent_package_debian_suffix}}"
-  loop: "{{control_center_packages}}"
-  when: ansible_os_family == "Debian"
+- name: Control Center Install
+  include: install.yml
 
 # Configure environment
 - name: Create Control Center Group

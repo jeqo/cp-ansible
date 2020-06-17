@@ -1,21 +1,6 @@
 ---
-- include_role:
-    name: confluent.common
-  when: not common_role_completed|bool
-
-# Install Packages
-- name: Install the Kafka Rest Packages
-  yum:
-    name: "{{item}}{{confluent_package_redhat_suffix}}"
-    state: latest
-  loop: "{{kafka_rest_packages}}"
-  when: ansible_os_family == "RedHat"
-
-- name: Install the Kafka Rest Packages
-  apt:
-    name: "{{item}}{{confluent_package_debian_suffix}}"
-  loop: "{{kafka_rest_packages}}"
-  when: ansible_os_family == "Debian"
+- name: Kafka REST Install
+  include: install.yml
 
 # Configure environment
 - name: Create Kafka Rest Group
