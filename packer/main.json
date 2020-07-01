@@ -1,0 +1,54 @@
+{
+  "variables": {
+    "cp_component": "",
+    "cp_version": "5.5.1",
+
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "aws_region": "us-west-2",
+    "aws_instance_type": "t3.small",
+
+    "vagrant_source_path": "ubuntu/bionic64"
+  },
+
+  "builders": [
+    {
+      "type": "vagrant",
+      "source_path": "{{user `vagrant_source_path`}}",
+      "box_name": "cp-{{user `cp_component`}}-{{user `cp_version`}}-ubuntu",
+      "communicator": "ssh",
+      "skip_add": "true",
+      "output_dir": "output-{{user `cp_component`}}"
+    },
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{user `aws_region`}}",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "ubuntu/images/*ubuntu-bionic-18.04-amd64-server-*",
+          "root-device-type": "ebs"
+        },
+        "owners": ["099720109477"],
+        "most_recent": true
+      },
+      "instance_type": "{{user `aws_instance_type`}}",
+      "ssh_username": "ubuntu",
+      "ami_name": "cp-{{user `cp_component`}}-{{user `cp_version`}}-ubuntu"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "install.yml",
+      "host_alias": "{{user `cp_component`}}",
+      "extra_arguments": [
+        "--extra-vars",
+        "ansible_become=yes"
+      ]
+    }
+  ]
+}

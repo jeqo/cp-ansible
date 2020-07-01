@@ -1,0 +1,6 @@
+---
+- name: Ping
+  hosts: zookeeper:kafka_broker:kafka_connect:kafka_rest:control_center:ksql:schema_registry
+  serial: 1
+  tasks:
+  - ping:
