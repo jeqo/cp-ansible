@@ -5,30 +5,32 @@ all:
     ansible_user: ubuntu
     ansible_become: true
     ansible_ssh_private_key_file: ~/.ssh/aws/us-west-2/jeqo.pem
+    confluent_repo_version: 5.5
+    confluent_package_version: 5.5.1
 
 zookeeper:
   hosts:
-    ec2-34-216-29-40.us-west-2.compute.amazonaws.com:
+    ec2-34-209-90-56.us-west-2.compute.amazonaws.com:
       zookeeper_id: 1
-    ec2-54-190-151-182.us-west-2.compute.amazonaws.com:
+    ec2-54-218-226-146.us-west-2.compute.amazonaws.com:
       zookeeper_id: 2
-    ec2-52-37-243-234.us-west-2.compute.amazonaws.com:
+    ec2-34-208-103-117.us-west-2.compute.amazonaws.com:
       zookeeper_id: 3
 kafka_broker:
   hosts:
-    ec2-54-218-149-85.us-west-2.compute.amazonaws.com:
+    ec2-54-212-32-68.us-west-2.compute.amazonaws.com:
       broker_id: 101
       kafka_broker:
         properties:
           broker.rack: us-west-2a
           replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
-    ec2-35-166-140-193.us-west-2.compute.amazonaws.com:
+    ec2-54-187-115-50.us-west-2.compute.amazonaws.com:
       broker_id: 201
       kafka_broker:
         properties:
           broker.rack: us-west-2b
           replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
-    ec2-34-213-47-108.us-west-2.compute.amazonaws.com:
+    ec2-52-12-137-49.us-west-2.compute.amazonaws.com:
       broker_id: 301
       kafka_broker:
         properties:
@@ -37,21 +39,21 @@ kafka_broker:
 
 schema_registry:
   hosts:
-    ec2-34-215-136-235.us-west-2.compute.amazonaws.com:
+    ec2-34-221-200-112.us-west-2.compute.amazonaws.com:
 
 kafka_rest:
   hosts:
-    ec2-35-164-75-254.us-west-2.compute.amazonaws.com:
+    ec2-54-245-208-157.us-west-2.compute.amazonaws.com:
 
 ksql:
   hosts:
-    ec2-34-219-76-105.us-west-2.compute.amazonaws.com:
+    ec2-34-221-97-46.us-west-2.compute.amazonaws.com:
 
 kafka_connect:
   hosts:
-    ec2-54-218-149-85.us-west-2.compute.amazonaws.com:
+    ec2-18-236-151-197.us-west-2.compute.amazonaws.com:
 
 
 control_center:
   hosts:
-    ec2-34-216-244-152.us-west-2.compute.amazonaws.com:
+    ec2-52-25-164-63.us-west-2.compute.amazonaws.com:
