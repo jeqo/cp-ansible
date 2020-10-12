@@ -8,54 +8,50 @@ all:
 
 zookeeper:
   hosts:
-    ec2-34-216-218-34.us-west-2.compute.amazonaws.com:
+    ec2-34-216-29-40.us-west-2.compute.amazonaws.com:
       zookeeper_id: 1
-    ec2-18-237-6-18.us-west-2.compute.amazonaws.com:
+    ec2-54-190-151-182.us-west-2.compute.amazonaws.com:
       zookeeper_id: 2
-    ec2-54-245-79-165.us-west-2.compute.amazonaws.com:
+    ec2-52-37-243-234.us-west-2.compute.amazonaws.com:
       zookeeper_id: 3
 kafka_broker:
   hosts:
-    ec2-18-237-52-32.us-west-2.compute.amazonaws.com:
-      broker_id: 301
-      kafka_broker:
-        properties:
-          broker.rack: us-west-2c
-          replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
-    ec2-54-218-193-37.us-west-2.compute.amazonaws.com:
-      broker_id: 201
-      kafka_broker:
-        properties:
-          broker.rack: us-west-2b
-          replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
-    ec2-54-200-140-155.us-west-2.compute.amazonaws.com:
+    ec2-54-218-149-85.us-west-2.compute.amazonaws.com:
       broker_id: 101
       kafka_broker:
         properties:
           broker.rack: us-west-2a
           replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
+    ec2-54-218-149-85.us-west-2.compute.amazonaws.com:
+      broker_id: 201
+      kafka_broker:
+        properties:
+          broker.rack: us-west-2b
+          replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
+    ec2-34-213-47-108.us-west-2.compute.amazonaws.com:
+      broker_id: 301
+      kafka_broker:
+        properties:
+          broker.rack: us-west-2c
+          replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
 
 schema_registry:
   hosts:
-    ec2-35-162-231-47.us-west-2.compute.amazonaws.com:
-    ec2-34-222-224-204.us-west-2.compute.amazonaws.com:
+    ec2-34-215-136-235.us-west-2.compute.amazonaws.com:
 
 kafka_rest:
   hosts:
-    ec2-34-213-12-45.us-west-2.compute.amazonaws.com:
-    ec2-54-245-181-122.us-west-2.compute.amazonaws.com:
+    ec2-35-164-75-254.us-west-2.compute.amazonaws.com:
 
 ksql:
   hosts:
-    ec2-54-212-153-7.us-west-2.compute.amazonaws.com:
-    ec2-54-149-40-86.us-west-2.compute.amazonaws.com:
+    ec2-34-219-76-105.us-west-2.compute.amazonaws.com:
 
 kafka_connect:
   hosts:
-    ec2-54-202-226-44.us-west-2.compute.amazonaws.com:
-    ec2-52-37-138-193.us-west-2.compute.amazonaws.com:
+    ec2-54-218-149-85.us-west-2.compute.amazonaws.com:
 
 
 control_center:
   hosts:
-    ec2-54-189-115-19.us-west-2.compute.amazonaws.com:
+    ec2-34-216-244-152.us-west-2.compute.amazonaws.com:
