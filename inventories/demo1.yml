@@ -22,7 +22,7 @@ kafka_broker:
         properties:
           broker.rack: us-west-2a
           replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
-    ec2-54-218-149-85.us-west-2.compute.amazonaws.com:
+    ec2-35-166-140-193.us-west-2.compute.amazonaws.com:
       broker_id: 201
       kafka_broker:
         properties:
