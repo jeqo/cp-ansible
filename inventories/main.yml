@@ -226,6 +226,10 @@
     # vars:
     #   zookeeper_user: custom-user
     #   zookeeper_group: custom-group
+    vars:
+      zookeeper:
+        properties:
+          4lw.commands.whitelist: "stat, ruok, conf, isro, srvr"
     hosts:
       ec2-54-74-181-104.eu-west-1.compute.amazonaws.com:
         ## By default the first host will get zookeeper id=1, second gets id=2. Set zookeeper_id to customize
