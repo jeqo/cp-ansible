@@ -270,7 +270,7 @@
     #     ldap.user.object.class=account
     ##
     hosts:
-      ec2-34-242-152-223.eu-west-1.compute.amazonaws.com:
+      ip-172-30-28-178.eu-west-1.compute.internal:
         ## By default the first host will get broker id=1, second gets id=2. Set broker_id to customize
         broker_id: 101
   
@@ -284,19 +284,19 @@
         ## For kerberos sasl protocol, EACH host will need these two variables:
         # kafka_broker_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/ip-172-31-34-246.us-east-2.compute.internal>
         # kafka_broker_kerberos_principal: <The principal configured in kdc server, eg. kafka/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-      ec2-54-154-186-254.eu-west-1.compute.amazonaws.com:
+      ip-172-30-39-243.eu-west-1.compute.internal:
         broker_id: 201
         kafka_broker:
           properties:
             broker.rack: eu-west-1b
             replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
-      ec2-3-250-230-204.eu-west-1.compute.amazonaws.com:
+      ip-172-30-7-16.eu-west-1.compute.internal:
         broker_id: 301
         kafka_broker:
           properties:
             broker.rack: eu-west-1c
             replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
-      ec2-3-249-50-53.eu-west-1.compute.amazonaws.com:
+      ip-172-30-25-235.eu-west-1.compute.internal:
         ## By default the first host will get broker id=1, second gets id=2. Set broker_id to customize
         broker_id: 102
   
@@ -310,13 +310,13 @@
         ## For kerberos sasl protocol, EACH host will need these two variables:
         # kafka_broker_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/ip-172-31-34-246.us-east-2.compute.internal>
         # kafka_broker_kerberos_principal: <The principal configured in kdc server, eg. kafka/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-      ec2-54-171-23-159.eu-west-1.compute.amazonaws.com:
+      ip-172-30-44-62.eu-west-1.compute.internal:
         broker_id: 202
         kafka_broker:
           properties:
             broker.rack: eu-west-1b
             replica.selector.class: org.apache.kafka.common.replica.RackAwareReplicaSelector
-      ec2-54-195-58-35.eu-west-1.compute.amazonaws.com:
+      ip-172-30-10-250.eu-west-1.compute.internal:
         broker_id: 302
         kafka_broker:
           properties:
@@ -329,11 +329,11 @@
     #   schema_registry_user: custom-user
     #   schema_registry_group: custom-group
     hosts:
-      ec2-54-194-216-48.eu-west-1.compute.amazonaws.com:
+      ip-172-30-18-99.eu-west-1.compute.internal:
         ## For kerberos sasl protocol, EACH host will need these two variables:
         # schema_registry_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/schemaregistry-ip-172-31-34-246.us-east-2.compute.internal
         # schema_registry_kerberos_principal: The principal configured in kdc server ex: schemaregistry/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-      ec2-34-243-43-4.eu-west-1.compute.amazonaws.com:
+      ip-172-30-35-228.eu-west-1.compute.internal:
   kafka_rest:
     ## To configure Rest Proxy to run as a custom user, uncomment below
     # vars:
@@ -351,11 +351,11 @@
     #   ksql_user: custom-user
     #   ksql_group: custom-group
     hosts:
-      ec2-176-34-143-211.eu-west-1.compute.amazonaws.com:
+      ip-172-30-25-114.eu-west-1.compute.internal:
         ## For kerberos sasl protocol, EACH host will need these two variables:
         # ksql_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/ksql-ip-172-31-37-15.us-east-2.compute.internal
         # ksql_kerberos_principal: The principal configured in kdc server ex: ksql/ip-172-31-37-15.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-      ec2-34-246-190-18.eu-west-1.compute.amazonaws.com:
+      ip-172-30-38-59.eu-west-1.compute.internal:
   #### To configure multiple ksql clusters, make use of child groups and follow the example below
   ## Note: There can only be one ksql group, so comment out above section, if configuring multiple ksql clusters
   ## Decide on a name each ksql cluster (that is not 'ksql') and use that as ansible group name, this is how the cluster will be named in c3
@@ -412,11 +412,11 @@
     # kafka_connect_secret_registry_enabled: false
     #
     hosts:
-      ec2-54-154-193-66.eu-west-1.compute.amazonaws.com:
+      ip-172-30-21-129.eu-west-1.compute.internal:
         ## For kerberos sasl protocol, EACH host will need these two variables:
         # kafka_connect_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/connect-ip-172-31-34-246.us-east-2.compute.internal
         # kafka_connect_kerberos_principal: The principal configured in kdc server ex: connect/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-      ec2-34-249-24-49.eu-west-1.compute.amazonaws.com:
+      ip-172-30-43-71.eu-west-1.compute.internal:
   
   #### To configure multiple connect clusters, make use of child groups and follow the example below
   ## Note: There can only be one kafka_connect group, so comment out above section, if configuring multiple connect clusters
@@ -446,7 +446,7 @@
     #   control_center_user: custom-user
     #   control_center_group: custom-group
     hosts:
-      ec2-54-170-33-252.eu-west-1.compute.amazonaws.com:
+      ip-172-30-22-141.eu-west-1.compute.internal:
         ## For kerberos sasl protocol, EACH host will need these two variables:
         # control_center_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/controlcenter-ip-172-31-37-15.us-east-2.compute.internal
         # control_center_kerberos_principal: The principal configured in kdc server ex: controlcenter/ip-172-31-37-15.us-east-2.compute.internal@REALM.EXAMPLE.COM>
