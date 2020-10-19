@@ -227,16 +227,16 @@
     #   zookeeper_user: custom-user
     #   zookeeper_group: custom-group
     hosts:
-      ec2-54-74-181-104.eu-west-1.compute.amazonaws.com:
+      ip-172-30-28-170.eu-west-1.compute.internal:
         ## By default the first host will get zookeeper id=1, second gets id=2. Set zookeeper_id to customize
         zookeeper_id: 1
   
         ## For kerberos sasl protocol, EACH host will need these two variables:
         # zookeeper_kerberos_keytab_path: <The path on ansible host to keytab file, eg. /tmp/keytabs/zookeeper-ip-172-31-34-246.us-east-2.compute.internal.keytab>
         # zookeeper_kerberos_principal: <The principal configured in kdc server, eg. zookeeper/ip-172-31-34-246.us-east-2.compute.internal@REALM.EXAMPLE.COM>
-      ec2-52-214-161-87.eu-west-1.compute.amazonaws.com:
+      ip-172-30-33-1.eu-west-1.compute.internal:
         zookeeper_id: 2
-      ec2-3-250-131-39.eu-west-1.compute.amazonaws.com:
+      ip-172-30-2-51.eu-west-1.compute.internal:
         zookeeper_id: 3
   
   kafka_broker:
