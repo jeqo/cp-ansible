@@ -64,20 +64,33 @@ def get_current_connectors(connect_url):
 
 def remove_connector(connect_url, name):
     url = "{}/{}".format(connect_url, name)
-    r = open_url(method='DELETE', url=url)
+    try:
+        r = open_url(method='DELETE', url=url)
+    except urllib_error.HTTPError as e:
+        body = e.read().decode()
+        raise Exception("Connector {} failed to be deleted. {}".format(name, body))
     return r.getcode() == 200
 
 def create_new_connector(connect_url, name, config):
     data = json.dumps({'name': name, 'config': config})
     headers = {'Content-Type': 'application/json'}
-    r = open_url(method='POST', url=connect_url, data=data, headers=headers)
+    try:
+        r = open_url(method='POST', url=connect_url, data=data, headers=headers)
+    except urllib_error.HTTPError as e:
+        body = e.read().decode()
+        raise Exception("Connector {} failed to be created. {}".format(name, body))
     return r.getcode() in (200, 201, 409)
 
 def update_existing_connector(connect_url, name, config):
     url = "{}/{}/config".format(connect_url, name)
     restart_url = "{}/{}/restart".format(connect_url, name)
 
-    res = open_url(url)
+    try:
+        res = open_url(url)
+    except urllib_error.HTTPError as e:
+        body = e.read().decode()
+        raise Exception("Connector {} failed to obtain current configuration. {}".format(name, body))
+
     current_config = json.loads(res.read())
 
     existing_config = config.copy()
@@ -88,13 +101,25 @@ def update_existing_connector(connect_url, name, config):
 
     data = json.dumps(config)
     headers = {'Content-Type': 'application/json'}
-    r = open_url(method='PUT', url=url, data=data, headers=headers)
 
-    changed = r.getcode() in (200, 201, 409)
+    try:
+        r = open_url(method='PUT', url=url, data=data, headers=headers)
+        changed = r.getcode() in (200, 201)
+    except urllib_error.HTTPError as e:
+        if r.getcode() not in (409):
+            body = e.read().decode()
+            raise Exception("Connector {} failed to  current configuration. {}".format(name, body))
+        else:
+            changed = True
 
-    r = open_url(method='POST', url=restart_url)
-    if r.getcode() not in (200, 204, 409):
-        raise Exception("Connector {} failed to restart after a configuration update. {}".format(name, r.msg))
+    try:
+        r = open_url(method='POST', url=restart_url)
+        if r.getcode() not in (200, 204):
+            raise Exception("Connector {} failed to restart after a configuration update. {}".format(name, r.msg))
+    except urllib_error.HTTPError as e:
+        if r.getcode() not in (409):
+            body = e.read().decode()
+            raise Exception("Connector {} failed to restart after a configuration update. {}".format(name, body))
 
     return changed
 
