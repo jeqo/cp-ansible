@@ -106,7 +106,7 @@ def update_existing_connector(connect_url, name, config):
         r = open_url(method='PUT', url=url, data=data, headers=headers)
         changed = r.getcode() in (200, 201)
     except urllib_error.HTTPError as e:
-        if r.getcode() not in (409):
+       if e.code != 409:
             body = e.read().decode()
             raise Exception("Connector {} failed to  current configuration. {}".format(name, body))
         else:
@@ -117,7 +117,7 @@ def update_existing_connector(connect_url, name, config):
         if r.getcode() not in (200, 204):
             raise Exception("Connector {} failed to restart after a configuration update. {}".format(name, r.msg))
     except urllib_error.HTTPError as e:
-        if r.getcode() not in (409):
+       if e.code != 409:
             body = e.read().decode()
             raise Exception("Connector {} failed to restart after a configuration update. {}".format(name, body))
 
