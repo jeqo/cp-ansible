@@ -88,8 +88,9 @@ def update_existing_connector(connect_url, name, config):
     try:
         res = open_url(url)
     except urllib_error.HTTPError as e:
-        body = e.read().decode()
-        raise Exception("Connector {} failed to obtain current configuration. {}".format(name, body))
+        if e.code != 409:
+            body = e.read().decode()
+            raise Exception("Connector {} failed to obtain current configuration. {}".format(name, body))
 
     current_config = json.loads(res.read())
 
@@ -106,7 +107,7 @@ def update_existing_connector(connect_url, name, config):
         r = open_url(method='PUT', url=url, data=data, headers=headers)
         changed = r.getcode() in (200, 201)
     except urllib_error.HTTPError as e:
-       if e.code != 409:
+        if e.code != 409:
             body = e.read().decode()
             raise Exception("Connector {} failed to  current configuration. {}".format(name, body))
         else:
