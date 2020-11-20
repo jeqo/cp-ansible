@@ -1,0 +1,78 @@
+all:
+  vars:
+    ansible_connection: ssh
+    ansible_user: centos
+    ansible_become: true
+    ansible_ssh_private_key_file: ~/.ssh/aws/eu-west-1/jeqo.pem
+
+    ssl_enabled: true
+    zookeeper_ssl_enabled: false
+
+    jmxexporter_enabled: true
+
+zookeeper:
+  hosts:
+    ip-172-30-19-148.eu-west-1.compute.internal:
+      ansible_host: 172.30.19.148 # i-0ae41e6fa11f905dd
+
+      zookeeper_id: 1
+    ip-172-30-45-179.eu-west-1.compute.internal:
+      ansible_host: 172.30.45.179 # i-03cfd4440a5e8c7aa
+
+      zookeeper_id: 2
+    ip-172-30-14-114.eu-west-1.compute.internal:
+      ansible_host: 172.30.14.114 # i-0bc463608bfd33beb
+
+      zookeeper_id: 3
+
+kafka_broker:
+  vars:
+    kafka_broker_service_environment_overrides:
+      KAFKA_HEAP_OPTS: "-Xms2g -Xmx2g -XX:MetaspaceSize=96m -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=16M -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80"
+  hosts:
+    ip-172-30-22-50.eu-west-1.compute.internal:
+      ansible_host: 172.30.22.50 # i-03b53988f57aada40
+
+      broker_id: 1 
+    ip-172-30-39-88.eu-west-1.compute.internal:
+      ansible_host: 172.30.39.88 # i-04d5de5943a97bed5
+
+      broker_id: 2 
+    ip-172-30-3-110.eu-west-1.compute.internal:
+      ansible_host: 172.30.3.110 # i-037bd1e517634c916
+
+      broker_id: 3 
+    ip-172-30-20-96.eu-west-1.compute.internal:
+      ansible_host: 172.30.20.96 # i-02823e8992ed9c308
+
+      broker_id: 4 
+
+schema_registry:
+  hosts:
+    ip-172-30-21-58.eu-west-1.compute.internal:
+      ansible_host: 172.30.21.58 # i-07c60b802aa9ed564
+    ip-172-30-47-100.eu-west-1.compute.internal:
+      ansible_host: 172.30.47.100 # i-037f0d2ba83e15093
+
+kafka_connect:
+  hosts:
+    ip-172-30-30-146.eu-west-1.compute.internal:
+      ansible_host: 172.30.30.146 # i-0bee789a549a48ae7
+    ip-172-30-34-103.eu-west-1.compute.internal:
+      ansible_host: 172.30.34.103 # i-00eb1abf3d685ad9e
+
+kafka_rest:
+  hosts:
+
+ksql:
+  hosts:
+    ip-172-30-23-22.eu-west-1.compute.internal:
+      ansible_host: 172.30.23.22 # i-0a80e3d68c14e3f9d
+    ip-172-30-33-182.eu-west-1.compute.internal:
+      ansible_host: 172.30.33.182 # i-0a00caa750890b4ce
+
+control_center:
+  hosts:
+    ip-172-30-17-64.eu-west-1.compute.internal: 
+      ansible_host: 172.30.17.64 # i-00e1c962408ae6d26
+
