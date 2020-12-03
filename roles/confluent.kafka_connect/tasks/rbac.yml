@@ -75,6 +75,11 @@
               },
               {
                 "resourceType":"Topic",
+                "name":"_confluent-command",
+                "patternType":"LITERAL"
+              },
+              {
+                "resourceType":"Topic",
                 "name":"{{kafka_connect_final_properties['offset.storage.topic']}}",
                 "patternType":"LITERAL"
               },
