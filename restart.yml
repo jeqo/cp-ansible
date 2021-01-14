@@ -1,56 +1,63 @@
+---
 - name: Zookeeper Provisioning
   hosts: zookeeper
   gather_facts: false
   tags: zookeeper
-  environment: "{{ proxy_env }}"
   tasks:
-    - import_tasks: roles/confluent.zookeeper/tasks/restart_zookeeper.yml
+    - import_role: 
+        name: confluent.zookeeper
+        tasks_from: restart_zookeeper.yml
 
 - name: Kafka Broker Provisioning
   hosts: kafka_broker
   gather_facts: false
   tags: kafka_broker
-  environment: "{{ proxy_env }}"
   tasks:
-    - import_tasks: roles/confluent.kafka_broker/tasks/restart_kafka.yml
+    - import_role: 
+        name: confluent.kafka_broker
+        tasks_from: restart_kafka.yml
 
 - name: Schema Registry Provisioning
   hosts: schema_registry
   gather_facts: false
   tags: schema_registry
-  environment: "{{ proxy_env }}"
   tasks:
-    - import_tasks: roles/confluent.schema_registry/tasks/restart_schema_registry.yml
+    - import_role:
+        name: confluent.schema_registry
+        tasks_from: restart_schema_registry.yml
 
 - name: Kafta Connect Provisioning
   hosts: kafka_connect
   gather_facts: false
   tags: kafka_connect
-  environment: "{{ proxy_env }}"
   tasks:
-    - import_tasks: tasks/confluent.kafka_connect/tasks/restart_connect.yml
+    - import_role:
+        name: confluent.kafka_connect
+        tasks_from: restart_connect.yml
 
 - name: KSQL Provisioning
   hosts: ksql
   gather_facts: false
   tags: ksql
-  environment: "{{ proxy_env }}"
   tasks:
-    - import_tasks: roles/confluent.ksql/tasks/restart_ksql.yml
+    - import_role:
+        name: confluent.ksql
+        tasks_from: restart_ksql.yml
 
 - name: Kafka Rest Provisioning
   hosts: kafka_rest
   gather_facts: false
   tags: kafka_rest
-  environment: "{{ proxy_env }}"
   tasks:
-    - import_tasks: roles/confluent.kafka_rest/tasks/restart_kafka_rest.yml
+    - import_role:
+        name: confluent.kafka_rest
+        tasks_from: restart_kafka_rest.yml
 
 - name: Control Center Provisioning
   hosts: control_center
   gather_facts: false
   tags: control_center
-  environment: "{{ proxy_env }}"
   tasks:
-    - import_tasks: roles/confluent.control_center/tasks/restart_control_center.yml
-
+    - service:
+        name: confluent-control-center
+        state: restarted

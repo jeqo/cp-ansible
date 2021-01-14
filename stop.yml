@@ -1,0 +1,63 @@
+---
+- name: Control Center Provisioning
+  hosts: control_center
+  gather_facts: false
+  tags: control_center
+  tasks:
+    - service:
+        name: confluent-control-center
+        state: stopped
+
+- name: Kafka Rest Provisioning
+  hosts: kafka_rest
+  gather_facts: false
+  tags: kafka_rest
+  tasks:
+    - service:
+        name: confluent-kafka-rest
+        state: stopped
+
+- name: KSQL Provisioning
+  hosts: ksql
+  gather_facts: false
+  tags: ksql
+  tasks:
+    - service:
+        name: confluent-ksqldb
+        state: stopped
+
+- name: Kafta Connect Provisioning
+  hosts: kafka_connect
+  gather_facts: false
+  tags: kafka_connect
+  tasks:
+    - service:
+        name: confluent-kafka-connect
+        state: stopped
+
+- name: Schema Registry Provisioning
+  hosts: schema_registry
+  gather_facts: false
+  tags: schema_registry
+  tasks:
+    - service:
+        name: confluent-schema-registry
+        state: stopped
+
+- name: Kafka Broker Provisioning
+  hosts: kafka_broker
+  gather_facts: false
+  tags: kafka_broker
+  tasks:
+    - service: 
+        name: confluent-server
+        state: stopped
+
+- name: Zookeeper Provisioning
+  hosts: zookeeper
+  gather_facts: false
+  tags: zookeeper
+  tasks:
+    - service: 
+        name: confluent-zookeeper
+        state: stopped
